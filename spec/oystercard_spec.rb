@@ -20,8 +20,12 @@ describe Oystercard do
     end
     describe "#touch_in" do
         it "Should change the en_route instance variable to true" do
+            subject.top_up(10)
             subject.touch_in
             expect(subject.en_route).to eq(true)
+        end
+        it 'Should raise and error if balance less than £1' do
+            expect { subject.touch_in }.to raise_error "£#{Oystercard::MINIMUM_FARE} required to touch in"
         end
     end
     describe "#touch_out" do
